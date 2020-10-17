@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "standard",
+    "prettier"
+  ],
+  "env": {
+    "node": true
+  },
+  "globals": {
+    "Phaser": true
+  }
+}

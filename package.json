@@ -1,0 +1,43 @@
+{
+  "name": "multiplayer-game-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "module": "src/main.js",
+  "scripts": {
+    "start": "node -r esm src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KingTayTay/multiplayer-game-api.git"
+  },
+  "author": "Tyler Wilson (tyler.r.wilson15@gmail.com)",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/KingTayTay/multiplayer-game-api/issues"
+  },
+  "homepage": "https://github.com/KingTayTay/multiplayer-game-api#readme",
+  "dependencies": {
+    "@geckos.io/client": "^1.7.0",
+    "@geckos.io/phaser-on-nodejs": "^1.2.3",
+    "@geckos.io/server": "^1.7.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "lodash": "^4.17.20",
+    "phaser": "^3.24.1",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}
