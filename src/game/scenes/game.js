@@ -1,20 +1,23 @@
 import Geckos, { iceServers } from '@geckos.io/server'
 import { Scene } from 'phaser'
-import { map, set, unset } from 'lodash/fp'
+import { map, pick, set, unset } from 'lodash/fp'
 import { v4 as uuid } from 'uuid'
 import Player from '../components/Player'
+import Enemy from '../components/Enemy'
 
 export default class GameScene extends Scene {
   constructor() {
     super({ key: 'GameScene' })
     this.playerId = 0
     this.players = {}
+    this.enemy = {}
 
     this.onConnectionHandler = this.onConnectionHandler.bind(this)
     this.onDisconnectHandler = this.onDisconnectHandler.bind(this)
     this.onPlayerAddHandler = this.onPlayerAddHandler.bind(this)
     this.onPlayerMoveHandler = this.onPlayerMoveHandler.bind(this)
-    this.getUpdates = this.getUpdates.bind(this)
+    this.getPlayerUpdates = this.getPlayerUpdates.bind(this)
+    this.getEnemyUpdates = this.getEnemyUpdates.bind(this)
   }
 
   // Lifecycle
@@ -28,13 +31,23 @@ export default class GameScene extends Scene {
 
   create() {
     this.io.onConnection(this.onConnectionHandler)
+
+    const id = uuid()
+    const name = 'Big Baby'
+    const hp = { red: 2 }
+    const gameObject = new Enemy(this, id, name, hp)
+
+    this.enemy = gameObject
   }
 
   update() {
     const players = this.players
-    const updates = this.getUpdates(players)
+    const updates = {
+      players: this.getPlayerUpdates(players),
+      enemy: this.getEnemyUpdates(),
+    }
 
-    if (updates.length > 0) {
+    if (updates.players.length > 0) {
       this.io.room().emit('SERVER_UPDATE', updates)
     }
   }
@@ -86,7 +99,7 @@ export default class GameScene extends Scene {
     }
   }
 
-  getUpdates(players) {
+  getPlayerUpdates(players) {
     return map(({ id, player }) => {
       const isDeltaX = Math.abs(player.x - player.prevX) > 0.5
       const isDeltaY = Math.abs(player.y - player.prevY) > 0.5
@@ -95,5 +108,9 @@ export default class GameScene extends Scene {
         return { id, x: player.x, y: player.y }
       }
     })(players)
+  }
+
+  getEnemyUpdates() {
+    return pick(['id', 'name', 'hp'])(this.enemy)
   }
 }

@@ -6,15 +6,15 @@ import GameScene from './scenes/game'
 const config = {
   type: Phaser.HEADLESS,
   parent: 'phaser-game',
-  width: 896,
-  height: 504,
+  width: 414,
+  height: 736,
   banner: false,
   audio: false,
   scene: [GameScene],
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: { y: 1200 },
+      gravity: { y: 0 },
     },
   },
 }
